@@ -18,6 +18,7 @@ gem 'firebase'
 gem 'google-cloud-firestore'
 
 
+gem 'pg'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"

@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   Rails.application.routes.draw do
-    resources :posts, only: [:index, :create, :update, :destroy]
+    resources :users
+    resources :chat_rooms
+    resources :chat_room_users
+    resources :messages
+    # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   end
+  
 end

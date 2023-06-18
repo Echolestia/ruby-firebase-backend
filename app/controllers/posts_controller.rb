@@ -1,35 +1,40 @@
 class PostsController < ApplicationController
-    before_action :initialize_firestore
-  
-    def index
-      @posts = @firestore.col('posts').get.map(&:data)
-      render json: @posts
-    end
-  
-    def create
-      post_data = params.require(:post).permit(:title, :body).to_h
-      puts post_data
-      @firestore.col('posts').add(post_data)
+
+  def index
+    @posts = Post.all
+    render json: @posts
+  end
+
+  def create
+    post = Post.new(post_params)
+    if post.save
       render json: { message: 'Post created successfully' }
-    end
-  
-    def update
-      post_data = params.require(:post).permit(:title, :body).to_h
-      doc_id = params[:id]
-      @firestore.doc("posts/#{doc_id}").set(post_data)
-      render json: { message: 'Post updated successfully' }
-    end
-  
-    def destroy
-      doc_id = params[:id]
-      @firestore.doc("posts/#{doc_id}").delete
-      render json: { message: 'Post deleted successfully' }
-    end
-  
-    private
-  
-    def initialize_firestore
-      @firestore = Google::Cloud::Firestore.new project_id: 'echolestia'
+    else
+      render json: { message: 'Post creation failed' }
     end
   end
-  
+
+  def update
+    post = Post.find(params[:id])
+    if post.update(post_params)
+      render json: { message: 'Post updated successfully' }
+    else
+      render json: { message: 'Post update failed' }
+    end
+  end
+
+  def destroy
+    post = Post.find(params[:id])
+    if post.destroy
+      render json: { message: 'Post deleted successfully' }
+    else
+      render json: { message: 'Post deletion failed' }
+    end
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+end
