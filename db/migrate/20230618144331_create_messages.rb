@@ -6,7 +6,7 @@ class CreateMessages < ActiveRecord::Migration[7.0]
       t.datetime :timestamp
       t.float :sentiment_analysis_score
       t.text :content
-      t.string :type
+      t.string :message_type
       t.references :chat_room, null: false, foreign_key: true
 
       t.timestamps

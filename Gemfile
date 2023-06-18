@@ -54,3 +54,8 @@ group :development do
   # gem "spring"
 end
 
+gem 'rswag-api'
+gem 'rswag-ui'
+gem 'rswag-specs', '~> 2.0'
+
+

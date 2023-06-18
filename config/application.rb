@@ -12,6 +12,8 @@ require "action_mailbox/engine"
 require "action_text/engine"
 require "action_view/railtie"
 require "action_cable/engine"
+
+
 # require "rails/test_unit/railtie"
 
 
@@ -23,6 +25,7 @@ module RubyFirebase
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+    config.hosts.clear
 
     # Configuration for the application, engines, and railties goes here.
     #
