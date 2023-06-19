@@ -37,12 +37,13 @@ class MessagesController < ApplicationController
     end
   
     private
-      def set_message
-        @message = Message.find(params[:id])
-      end
-  
-      def message_params
-        params.require(:message).permit(:sender_id, :receiver_id, :timestamp, :sentiment_analysis_score, :content, :type, :chat_room_id)
-      end
+    def set_message
+      @message = Message.find(params[:id])
+    end
+    
+    def message_params
+      params.require(:message).permit(:sender_id, :receiver_id, :timestamp, :sentiment_analysis_score, :content, :message_type, :chat_room_id)
+    end
+    
   end
   

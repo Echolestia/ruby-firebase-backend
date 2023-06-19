@@ -37,12 +37,13 @@ class ChatRoomUsersController < ApplicationController
     end
   
     private
-      def set_chat_room_user
-        @chat_room_user = ChatRoomUser.find(params[:id])
-      end
-  
-      def chat_room_user_params
-        params.require(:chat_room_user).permit(:chat_room_id, :user_id)
-      end
+    def set_chat_room_user
+      @chat_room_user = ChatRoomUser.find(params[:id])
+    end
+    
+    def chat_room_user_params
+      params.require(:chat_room_user).permit(:chat_room_id, :user_id)
+    end
+    
   end
   

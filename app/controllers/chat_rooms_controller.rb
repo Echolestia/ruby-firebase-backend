@@ -37,12 +37,13 @@ class ChatRoomsController < ApplicationController
     end
   
     private
-      def set_chat_room
-        @chat_room = ChatRoom.find(params[:id])
-      end
-  
-      def chat_room_params
-        params.require(:chat_room).permit(:overall_sentiment_analysis_score, :date_created, :is_ai_chat, :is_group_chat)
-      end
+    def set_chat_room
+      @chat_room = ChatRoom.find(params[:id])
+    end
+    
+    def chat_room_params
+      params.require(:chat_room).permit(:overall_sentiment_analysis_score, :date_created, :is_ai_chat, :is_group_chat)
+    end
+    
   end
   

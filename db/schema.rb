@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_18_144331) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_19_103057) do
   create_table "chat_room_users", force: :cascade do |t|
     t.integer "chat_room_id", null: false
     t.integer "user_id", null: false
@@ -27,6 +27,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_144331) do
     t.boolean "is_group_chat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "graph_points", force: :cascade do |t|
+    t.float "x"
+    t.float "y"
+    t.integer "chat_room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_room_id"], name: "index_graph_points_on_chat_room_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -53,9 +62,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_144331) do
     t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "gender"
+    t.boolean "pregnant"
+    t.string "marital_status"
+    t.integer "pregnancy_week"
+    t.boolean "is_anonymous_login"
+    t.string "survey_result"
   end
 
   add_foreign_key "chat_room_users", "chat_rooms"
   add_foreign_key "chat_room_users", "users"
+  add_foreign_key "graph_points", "chat_rooms"
   add_foreign_key "messages", "chat_rooms"
 end
