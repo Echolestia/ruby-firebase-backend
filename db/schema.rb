@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_19_103057) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_19_121144) do
+  create_table "articles", force: :cascade do |t|
+    t.datetime "published_date"
+    t.datetime "created_date"
+    t.string "title"
+    t.string "author"
+    t.string "img_url"
+    t.string "url"
+    t.text "user_group"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "chat_room_users", force: :cascade do |t|
     t.integer "chat_room_id", null: false
     t.integer "user_id", null: false

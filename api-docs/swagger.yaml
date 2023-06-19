@@ -1,0 +1,363 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API V1"
+  },
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "Retrieves all users",
+        "tags": [
+          "Users"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "users found",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "user_type": {
+                    "type": "string"
+                  },
+                  "profile": {
+                    "type": "string"
+                  },
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "second_name": {
+                    "type": "string"
+                  },
+                  "age": {
+                    "type": "integer"
+                  },
+                  "occupation": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "phone_number": {
+                    "type": "string"
+                  },
+                  "gender": {
+                    "type": "string"
+                  },
+                  "pregnant": {
+                    "type": "boolean"
+                  },
+                  "marital_status": {
+                    "type": "string"
+                  },
+                  "pregnancy_week": {
+                    "type": "integer"
+                  },
+                  "is_anonymous_login": {
+                    "type": "boolean"
+                  },
+                  "survey_result": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "user_type",
+                  "profile",
+                  "first_name",
+                  "second_name",
+                  "age",
+                  "occupation",
+                  "username",
+                  "phone_number",
+                  "gender",
+                  "pregnant",
+                  "marital_status",
+                  "pregnancy_week",
+                  "is_anonymous_login",
+                  "survey_result"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates a user",
+        "tags": [
+          "Users"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_type": {
+                  "type": "string"
+                },
+                "profile": {
+                  "type": "string"
+                },
+                "first_name": {
+                  "type": "string"
+                },
+                "second_name": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "integer"
+                },
+                "occupation": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "phone_number": {
+                  "type": "string"
+                },
+                "gender": {
+                  "type": "string"
+                },
+                "pregnant": {
+                  "type": "boolean"
+                },
+                "marital_status": {
+                  "type": "string"
+                },
+                "pregnancy_week": {
+                  "type": "integer"
+                },
+                "is_anonymous_login": {
+                  "type": "boolean"
+                },
+                "survey_result": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "first_name",
+                "second_name",
+                "username"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "user created"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Retrieves a user",
+        "tags": [
+          "Users"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "user_type": {
+                  "type": "string"
+                },
+                "profile": {
+                  "type": "string"
+                },
+                "first_name": {
+                  "type": "string"
+                },
+                "second_name": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "integer"
+                },
+                "occupation": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "phone_number": {
+                  "type": "string"
+                },
+                "gender": {
+                  "type": "string"
+                },
+                "pregnant": {
+                  "type": "boolean"
+                },
+                "marital_status": {
+                  "type": "string"
+                },
+                "pregnancy_week": {
+                  "type": "integer"
+                },
+                "is_anonymous_login": {
+                  "type": "boolean"
+                },
+                "survey_result": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "user_type",
+                "profile",
+                "first_name",
+                "second_name",
+                "age",
+                "occupation",
+                "username",
+                "phone_number",
+                "gender",
+                "pregnant",
+                "marital_status",
+                "pregnancy_week",
+                "is_anonymous_login",
+                "survey_result"
+              ]
+            }
+          },
+          "404": {
+            "description": "user not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Updates a user",
+        "tags": [
+          "Users"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_type": {
+                  "type": "string"
+                },
+                "profile": {
+                  "type": "string"
+                },
+                "first_name": {
+                  "type": "string"
+                },
+                "second_name": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "integer"
+                },
+                "occupation": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "phone_number": {
+                  "type": "string"
+                },
+                "gender": {
+                  "type": "string"
+                },
+                "pregnant": {
+                  "type": "boolean"
+                },
+                "marital_status": {
+                  "type": "string"
+                },
+                "pregnancy_week": {
+                  "type": "integer"
+                },
+                "is_anonymous_login": {
+                  "type": "boolean"
+                },
+                "survey_result": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user updated"
+          },
+          "404": {
+            "description": "user not found"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a user",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "user deleted"
+          },
+          "404": {
+            "description": "user not found"
+          }
+        }
+      }
+    }
+  }
+}

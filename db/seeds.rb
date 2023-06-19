@@ -27,3 +27,18 @@ Message.create(sender_id: user2.id, receiver_id: user1.id, timestamp: Time.now +
 # Create some graph points
 GraphPoint.create(x: 0.1, y: 0.85, chat_room_id: chat_room1.id)
 GraphPoint.create(x: 0.2, y: 0.95, chat_room_id: chat_room1.id)
+
+
+article1 = Article.create(published_date: "2015-02-19T00:00:00Z", created_date: "2023-06-15T00:00:00Z", title: "5 Things to Do After a Surprise Pregnancy", author: "Camille Noe Pagán", img_url: "https://cdn.pixabay.com/photo/2015/09/21/14/24/zombie-949916_960_720.jpg", url: "https://www.webmd.com/baby/features/5-things-to-do-after-a-surprise-pregnancy")
+# db/seeds.rb
+
+# Create some articles
+article1 = Article.create(
+  published_date: "2015-02-19T00:00:00Z",
+  created_date: "2023-06-15T00:00:00Z",
+  title: "5 Things to Do After a Surprise Pregnancy",
+  author: "Camille Noe Pagán",
+  img_url: "https://cdn.pixabay.com/photo/2015/09/21/14/24/zombie-949916_960_720.jpg",
+  url: "https://www.webmd.com/baby/features/5-things-to-do-after-a-surprise-pregnancy",
+  user_group: ["group1", "group2"]
+)
