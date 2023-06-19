@@ -4,6 +4,943 @@
     "title": "API V1"
   },
   "paths": {
+    "/articles": {
+      "get": {
+        "summary": "Retrieves all articles",
+        "tags": [
+          "Articles"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "articles found",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "published_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "created_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "author": {
+                    "type": "string"
+                  },
+                  "img_url": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "user_group": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "published_date",
+                  "created_date",
+                  "title",
+                  "author",
+                  "img_url",
+                  "url",
+                  "user_group"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates an article",
+        "tags": [
+          "Articles"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "article",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "published_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "created_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "author": {
+                  "type": "string"
+                },
+                "img_url": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "user_group": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "published_date",
+                "created_date",
+                "title",
+                "author",
+                "img_url",
+                "url",
+                "user_group"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "article created"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/articles/{id}": {
+      "get": {
+        "summary": "Retrieves a article",
+        "tags": [
+          "Articles"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "article found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "published_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "created_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "author": {
+                  "type": "string"
+                },
+                "img_url": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "user_group": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "published_date",
+                "created_date",
+                "title",
+                "author",
+                "img_url",
+                "url",
+                "user_group"
+              ]
+            }
+          },
+          "404": {
+            "description": "article not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a article",
+        "tags": [
+          "Articles"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "article deleted"
+          },
+          "404": {
+            "description": "article not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Updates an article",
+        "tags": [
+          "Articles"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "article",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "published_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "created_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "author": {
+                  "type": "string"
+                },
+                "img_url": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "user_group": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "article updated"
+          },
+          "404": {
+            "description": "article not found"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/chat_rooms": {
+      "get": {
+        "summary": "Retrieves all chat rooms",
+        "tags": [
+          "Chat Rooms"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "chat rooms found",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "overall_sentiment_analysis_score": {
+                    "type": "number"
+                  },
+                  "date_created": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "is_ai_chat": {
+                    "type": "boolean"
+                  },
+                  "is_group_chat": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "date_created",
+                  "is_ai_chat",
+                  "is_group_chat"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates a chat room",
+        "tags": [
+          "Chat Rooms"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "chat_room",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "overall_sentiment_analysis_score": {
+                  "type": "number"
+                },
+                "date_created": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "is_ai_chat": {
+                  "type": "boolean"
+                },
+                "is_group_chat": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "date_created",
+                "is_ai_chat",
+                "is_group_chat"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "chat room created"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/chat_rooms/{id}": {
+      "get": {
+        "summary": "Retrieves a chat room",
+        "tags": [
+          "Chat Rooms"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "chat room found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "overall_sentiment_analysis_score": {
+                  "type": "number"
+                },
+                "date_created": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "is_ai_chat": {
+                  "type": "boolean"
+                },
+                "is_group_chat": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "date_created",
+                "is_ai_chat",
+                "is_group_chat"
+              ]
+            }
+          },
+          "404": {
+            "description": "chat room not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Updates a chat room",
+        "tags": [
+          "Chat Rooms"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "chat_room",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "overall_sentiment_analysis_score": {
+                  "type": "number"
+                },
+                "date_created": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "is_ai_chat": {
+                  "type": "boolean"
+                },
+                "is_group_chat": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "date_created",
+                "is_ai_chat",
+                "is_group_chat"
+              ]
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "chat room updated"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a chat room",
+        "tags": [
+          "Chat Rooms"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "chat room deleted"
+          }
+        }
+      }
+    },
+    "/chat_room_users": {
+      "get": {
+        "summary": "Retrieves all chat room users",
+        "tags": [
+          "Chat Room Users"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "chat room users found",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "chat_room_id": {
+                    "type": "integer"
+                  },
+                  "user_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id",
+                  "chat_room_id",
+                  "user_id"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates a chat room user",
+        "tags": [
+          "Chat Room Users"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "chat_room_user",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "chat_room_id": {
+                  "type": "integer"
+                },
+                "user_id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "chat_room_id",
+                "user_id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "chat room user created"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/chat_room_users/{id}": {
+      "get": {
+        "summary": "Retrieves a chat room user",
+        "tags": [
+          "Chat Room Users"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "chat room user found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "chat_room_id": {
+                  "type": "integer"
+                },
+                "user_id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "id",
+                "chat_room_id",
+                "user_id"
+              ]
+            }
+          },
+          "404": {
+            "description": "chat room user not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Updates a chat room user",
+        "tags": [
+          "Chat Room Users"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "chat_room_user",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "chat_room_id": {
+                  "type": "integer"
+                },
+                "user_id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "chat_room_id",
+                "user_id"
+              ]
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "chat room user updated"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a chat room user",
+        "tags": [
+          "Chat Room Users"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "chat room user deleted"
+          }
+        }
+      }
+    },
+    "/messages": {
+      "get": {
+        "summary": "Retrieves all messages",
+        "tags": [
+          "Messages"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "messages found",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "sender_id": {
+                    "type": "integer"
+                  },
+                  "receiver_id": {
+                    "type": "integer"
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "sentiment_analysis_score": {
+                    "type": "number"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "message_type": {
+                    "type": "string"
+                  },
+                  "chat_room_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "id",
+                  "sender_id",
+                  "receiver_id",
+                  "content",
+                  "message_type"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates a message",
+        "tags": [
+          "Messages"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "message",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sender_id": {
+                  "type": "integer"
+                },
+                "receiver_id": {
+                  "type": "integer"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "sentiment_analysis_score": {
+                  "type": "number"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "message_type": {
+                  "type": "string"
+                },
+                "chat_room_id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "sender_id",
+                "receiver_id",
+                "content",
+                "message_type"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "message created"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/messages/{id}": {
+      "get": {
+        "summary": "Retrieves a message",
+        "tags": [
+          "Messages"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "message found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "sender_id": {
+                  "type": "integer"
+                },
+                "receiver_id": {
+                  "type": "integer"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "sentiment_analysis_score": {
+                  "type": "number"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "message_type": {
+                  "type": "string"
+                },
+                "chat_room_id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "id",
+                "sender_id",
+                "receiver_id",
+                "content",
+                "message_type"
+              ]
+            }
+          },
+          "404": {
+            "description": "message not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Updates a message",
+        "tags": [
+          "Messages"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "message",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sender_id": {
+                  "type": "integer"
+                },
+                "receiver_id": {
+                  "type": "integer"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "sentiment_analysis_score": {
+                  "type": "number"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "message_type": {
+                  "type": "string"
+                },
+                "chat_room_id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "sender_id",
+                "receiver_id",
+                "content",
+                "message_type"
+              ]
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "message updated"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a message",
+        "tags": [
+          "Messages"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "message deleted"
+          }
+        }
+      }
+    },
     "/users": {
       "get": {
         "summary": "Retrieves all users",
