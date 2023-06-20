@@ -141,4 +141,37 @@ describe 'Articles API' do
       end
     end
   end
+  path '/articles/by_user_group/{user_group}' do
+    get 'Retrieves articles by user group' do
+      tags 'Articles'
+      produces 'application/json'
+      parameter name: :user_group, in: :path, type: :string
+  
+      response '200', 'articles found' do
+        schema type: :array,
+          items: {
+            properties: {
+              id: { type: :integer },
+              published_date: { type: :string, format: 'date-time' },
+              created_date: { type: :string, format: 'date-time' },
+              title: { type: :string },
+              author: { type: :string },
+              img_url: { type: :string },
+              url: { type: :string },
+              user_group: { type: :array, items: { type: :string } }
+            },
+            required: ['id', 'published_date', 'created_date', 'title', 'author', 'img_url', 'url', 'user_group']
+          }
+  
+        let(:user_group) { 'group1' }
+        run_test!
+      end
+  
+      response '404', 'articles not found' do
+        let(:user_group) { 'invalid' }
+        run_test!
+      end
+    end
+  end
+  
 end

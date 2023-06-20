@@ -285,6 +285,79 @@
         }
       }
     },
+    "/articles/by_user_group/{user_group}": {
+      "get": {
+        "summary": "Retrieves articles by user group",
+        "tags": [
+          "Articles"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_group",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "articles found",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "published_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "created_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "author": {
+                    "type": "string"
+                  },
+                  "img_url": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "user_group": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "published_date",
+                  "created_date",
+                  "title",
+                  "author",
+                  "img_url",
+                  "url",
+                  "user_group"
+                ]
+              }
+            }
+          },
+          "404": {
+            "description": "articles not found"
+          }
+        }
+      }
+    },
     "/chat_rooms": {
       "get": {
         "summary": "Retrieves all chat rooms",

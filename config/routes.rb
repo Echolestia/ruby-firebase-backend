@@ -9,6 +9,11 @@ Rails.application.routes.draw do
     resources :chat_room_users
     resources :messages
     resources :articles
+    resources :articles do
+      collection do
+        get 'by_user_group/:user_group', to: 'articles#by_user_group'
+      end
+    end
     # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   end
   
