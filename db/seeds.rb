@@ -8,17 +8,76 @@
 # db/seeds.rb
 
 # Create some users
-user1 = User.create(email:"john@email.com", password: "password1 encrypted", user_type: 'admin', profile: 'url1', first_name: 'John', second_name: 'Doe', age: 30, occupation: 'Engineer', username: 'johndoe', phone_number: '1234567890', gender: 'male', pregnant: false, marital_status: 'single', pregnancy_week: nil, is_anonymous_login: false, survey_result: 'result1')
-user2 = User.create(email:"user@email.com", password: "password1 encrypted", user_type: 'user', profile: 'url2', first_name: 'Jane', second_name: 'Doe', age: 25, occupation: 'Doctor', username: 'janedoe', phone_number: '0987654321', gender: 'female', pregnant: true, marital_status: 'married', pregnancy_week: 15, is_anonymous_login: false, survey_result: 'result2')
-user3 = User.create(email:"test@email.com", password: "password1 encrypted", user_type: 'user', profile: 'url2', first_name: 'Jane', second_name: 'Doe', age: 25, occupation: 'Doctor', username: 'janedoe', phone_number: '0987654321', gender: 'female', pregnant: true, marital_status: 'married', pregnancy_week: 15, is_anonymous_login: false, survey_result: 'result2')
+# Create more users
+users = 50.times.map do |i|
+  User.create(
+    email: "user#{i}@email.com", 
+    password: "password#{i} encrypted", 
+    user_type: i.zero? ? 'admin' : 'user', 
+    profile: "https://picsum.photos/200", 
+    first_name: "User#{i}", 
+    second_name: "Last#{i}", 
+    age: 20+i, 
+    occupation: 'Occupation', 
+    username: "user#{i}", 
+    phone_number: '1234567890', 
+    gender: i.even? ? 'male' : 'female', 
+    pregnant: false, 
+    marital_status: 'single', 
+    pregnancy_week: nil, 
+    is_anonymous_login: false, 
+    survey_result: 'result1'
+  )
+end
 
-# Create some chat rooms
-chat_room1 = ChatRoom.create(overall_sentiment_analysis_score: 0.85, date_created: Time.now, is_ai_chat: false, is_group_chat: false, user1_id: user1.id, user2_id: user2.id)
-chat_room2 = ChatRoom.create(overall_sentiment_analysis_score: 0.95, date_created: Time.now + 1.day, is_ai_chat: true, is_group_chat: true, user1_id: user1.id, user2_id: user3.id)
+# Create more chat rooms
+chat_rooms = 50.times.map do |i|
+  user1_id = 1
+  user2_id = users[(i+1)%10].id  # To ensure the second user id is always different from the first, and within the range
 
-# Create some messages
-Message.create(sender_id: user1.id, receiver_id: user2.id, timestamp: Time.now, sentiment_analysis_score: 0.85, content: 'Hello Jane', message_type: 'text', chat_room_id: chat_room1.id)
-Message.create(sender_id: user2.id, receiver_id: user1.id, timestamp: Time.now + 1.day, sentiment_analysis_score: 0.95, content: 'Hi John', message_type: 'text', chat_room_id: chat_room1.id)
+  ChatRoom.create(
+    overall_sentiment_analysis_score: 0.85, 
+    date_created: Time.now + i.days, 
+    is_ai_chat: false, 
+    is_group_chat: false, 
+    user1_id: user1_id, 
+    user2_id: user2_id
+  )
+end
+
+# Create more messages
+100.times do |i|
+  sender_id = users[i%10].id
+  receiver_id = users[(i+1)%10].id  # To ensure the receiver id is always different from the sender, and within the range
+  chat_room_id = chat_rooms[i%10].id
+
+  Message.create(
+    sender_id: sender_id, 
+    receiver_id: 1, 
+    timestamp: Time.now + i.hours, 
+    sentiment_analysis_score: 0.85, 
+    content: "Message #{i}", 
+    message_type: 'text', 
+    chat_room_id: chat_room_id,
+    read: i.even? # This will create a mix of read and unread messages
+  )
+end
+100.times do |i|
+  sender_id = users[i%10].id
+  receiver_id = users[(i+1)%10].id  # To ensure the receiver id is always different from the sender, and within the range
+  chat_room_id = chat_rooms[i%10].id
+
+  Message.create(
+    sender_id: 1, 
+    receiver_id: receiver_id, 
+    timestamp: Time.now + i.hours, 
+    sentiment_analysis_score: 0.85, 
+    content: "Message #{i}", 
+    message_type: 'text', 
+    chat_room_id: chat_room_id,
+    read: i.even? # This will create a mix of read and unread messages
+  )
+end
 
 
 # article1 = Article.create(published_date: "2015-02-19T00:00:00Z", created_date: "2023-06-15T00:00:00Z", 

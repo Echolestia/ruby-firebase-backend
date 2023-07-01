@@ -21,6 +21,8 @@ describe 'Chat Rooms API' do
             opponent_first_name: { type: :string },
             opponent_second_name: { type: :string },
             opponent_picture: { type: :string },
+            last_message: { type: :string },
+            unread_messages_count: {  type: :string }  
           },
           required: ['id', 'date_created', 'is_ai_chat', 'is_group_chat', 'opponent_id', 'opponent_first_name', 'opponent_second_name', 'opponent_picture']
         }

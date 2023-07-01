@@ -410,6 +410,12 @@
                   },
                   "opponent_picture": {
                     "type": "string"
+                  },
+                  "last_message": {
+                    "type": "string"
+                  },
+                  "unread_messages_count": {
+                    "type": "string"
                   }
                 },
                 "required": [
