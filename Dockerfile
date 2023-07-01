@@ -24,7 +24,7 @@ RUN chmod +x cloud_sql_proxy
 
 # Set environment variables
 ENV DB_SOCKET_DIR=/cloudsql
-ENV INSTANCE_CONNECTION_NAME=rubyintro:asia-southeast1:rubyintro
+ENV INSTANCE_CONNECTION_NAME=rubyintro:asia-southeast1:guidinghand
 
 # Copy the service account key into the Docker image
 COPY /app/service_account.json /app/service_account.json

@@ -8,7 +8,7 @@ class CreateMessages < ActiveRecord::Migration[7.0]
       t.text :content
       t.string :message_type
       t.references :chat_room, null: false, foreign_key: true
-
+      t.boolean :read
       t.timestamps
     end
   end

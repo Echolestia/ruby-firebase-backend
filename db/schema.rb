@@ -23,31 +23,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_121144) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "chat_room_users", force: :cascade do |t|
-    t.integer "chat_room_id", null: false
-    t.integer "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["chat_room_id"], name: "index_chat_room_users_on_chat_room_id"
-    t.index ["user_id"], name: "index_chat_room_users_on_user_id"
-  end
-
   create_table "chat_rooms", force: :cascade do |t|
     t.float "overall_sentiment_analysis_score"
     t.datetime "date_created"
     t.boolean "is_ai_chat"
     t.boolean "is_group_chat"
+    t.integer "user1_id"
+    t.integer "user2_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "graph_points", force: :cascade do |t|
-    t.float "x"
-    t.float "y"
-    t.integer "chat_room_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["chat_room_id"], name: "index_graph_points_on_chat_room_id"
+    t.index ["user1_id"], name: "index_chat_rooms_on_user1_id"
+    t.index ["user2_id"], name: "index_chat_rooms_on_user2_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -58,6 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_121144) do
     t.text "content"
     t.string "message_type"
     t.integer "chat_room_id", null: false
+    t.boolean "read"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["chat_room_id"], name: "index_messages_on_chat_room_id"
@@ -72,18 +59,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_121144) do
     t.string "occupation"
     t.string "username"
     t.string "phone_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "gender"
     t.boolean "pregnant"
     t.string "marital_status"
     t.integer "pregnancy_week"
     t.boolean "is_anonymous_login"
     t.string "survey_result"
+    t.string "email"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "chat_room_users", "chat_rooms"
-  add_foreign_key "chat_room_users", "users"
-  add_foreign_key "graph_points", "chat_rooms"
+  add_foreign_key "chat_rooms", "users", column: "user1_id"
+  add_foreign_key "chat_rooms", "users", column: "user2_id"
   add_foreign_key "messages", "chat_rooms"
 end

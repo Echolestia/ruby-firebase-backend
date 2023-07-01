@@ -11,6 +11,44 @@ class ChatRoomsController < ApplicationController
     def show
       render json: @chat_room
     end
+
+    
+    # GET /chat_rooms_for_user/:user_id
+    def chat_rooms_for_user
+      user_id = params[:user_id].to_i
+      @chat_rooms = ChatRoom.where("user1_id = :user_id OR user2_id = :user_id", user_id: user_id)
+
+      @chat_rooms = @chat_rooms.map do |room|
+        opponent_id = room.user1_id == user_id ? room.user2_id : room.user1_id
+        opponent = User.find(opponent_id)
+        room.as_json.merge({
+          opponent_id: opponent_id, 
+          opponent_first_name: opponent.first_name, 
+          opponent_second_name: opponent.second_name, 
+          opponent_picture: opponent.profile
+        })
+      end
+
+      render json: @chat_rooms
+    end
+
+    # GET /chat_rooms_with_messages/:id
+    def show_with_messages
+      set_chat_room
+      opponent_id = @chat_room.user1_id == params[:user_id].to_i ? @chat_room.user2_id : @chat_room.user1_id
+      opponent = User.find(opponent_id)
+      @chat_room_with_messages = @chat_room.as_json.merge({
+        opponent_id: opponent_id, 
+        opponent_first_name: opponent.first_name, 
+        opponent_second_name: opponent.second_name, 
+        opponent_picture: opponent.profile,
+        messages: @chat_room.messages
+      })
+      
+      render json: @chat_room_with_messages
+    end
+
+
   
     # POST /chat_rooms
     def create

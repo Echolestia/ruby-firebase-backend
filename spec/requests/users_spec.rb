@@ -26,7 +26,9 @@ describe 'Users API' do
               marital_status: { type: :string },
               pregnancy_week: { type: :integer },
               is_anonymous_login: { type: :boolean },
-              survey_result: { type: :string },
+              survey_result: { type: :string }, 
+              email: {type: :string},
+              password: {type: :string}
             },
             required: [ 'id', 'user_type', 'profile', 'first_name', 'second_name', 'age', 'occupation', 'username', 'phone_number', 'gender', 'pregnant', 'marital_status', 'pregnancy_week', 'is_anonymous_login', 'survey_result' ]
           }
@@ -59,7 +61,9 @@ describe 'Users API' do
             marital_status: { type: :string },
             pregnancy_week: { type: :integer },
             is_anonymous_login: { type: :boolean },
-            survey_result: { type: :string },
+            survey_result: { type: :string }, 
+            email: {type: :string},
+            password: {type: :string}
           },
           required: [ 'id', 'user_type', 'profile', 'first_name', 'second_name', 'age', 'occupation', 'username', 'phone_number', 'gender', 'pregnant', 'marital_status', 'pregnancy_week', 'is_anonymous_login', 'survey_result' ]
 
@@ -95,7 +99,9 @@ describe 'Users API' do
           marital_status: { type: :string },
           pregnancy_week: { type: :integer },
           is_anonymous_login: { type: :boolean },
-          survey_result: { type: :string },
+          survey_result: { type: :string }, 
+          email: {type: :string},
+          password: {type: :string}
         },
         required: ['first_name', 'second_name', 'username']  # Update required fields as necessary.
       }
@@ -135,7 +141,9 @@ describe 'Users API' do
           marital_status: { type: :string },
           pregnancy_week: { type: :integer },
           is_anonymous_login: { type: :boolean },
-          survey_result: { type: :string },
+          survey_result: { type: :string }, 
+          email: {type: :string},
+          password: {type: :string}
         }
       }
 

@@ -9,6 +9,14 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :occupation
       t.string :username
       t.string :phone_number
+      t.string :gender
+      t.boolean :pregnant
+      t.string :marital_status
+      t.integer :pregnancy_week
+      t.boolean :is_anonymous_login
+      t.string :survey_result
+      t.string :email
+      t.string :password
 
       t.timestamps
     end

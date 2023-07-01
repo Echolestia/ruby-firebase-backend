@@ -20,6 +20,7 @@ describe 'Messages API' do
               content: { type: :string },
               message_type: { type: :string },
               chat_room_id: { type: :integer },
+              read: { type: :boolean }
             },
             required: ['id', 'sender_id', 'receiver_id', 'content', 'message_type']
           }
@@ -41,6 +42,7 @@ describe 'Messages API' do
           content: { type: :string },
           message_type: { type: :string },
           chat_room_id: { type: :integer },
+          read: { type: :boolean }
         },
         required: ['sender_id', 'receiver_id', 'content', 'message_type']
       }
@@ -74,6 +76,7 @@ describe 'Messages API' do
             content: { type: :string },
             message_type: { type: :string },
             chat_room_id: { type: :integer },
+            read: { type: :boolean }
           },
           required: ['id', 'sender_id', 'receiver_id', 'content', 'message_type']
 
@@ -101,6 +104,7 @@ describe 'Messages API' do
           content: { type: :string },
           message_type: { type: :string },
           chat_room_id: { type: :integer },
+          read: { type: :boolean }
         },
         required: ['sender_id', 'receiver_id', 'content', 'message_type']
       }

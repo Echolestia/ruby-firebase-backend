@@ -358,6 +358,184 @@
         }
       }
     },
+    "/chat_rooms_for_user/{user_id}": {
+      "get": {
+        "summary": "Retrieves all chat rooms for a user",
+        "tags": [
+          "Chat Rooms"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "chat rooms found for user",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "overall_sentiment_analysis_score": {
+                    "type": "number"
+                  },
+                  "date_created": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "is_ai_chat": {
+                    "type": "boolean"
+                  },
+                  "is_group_chat": {
+                    "type": "boolean"
+                  },
+                  "opponent_id": {
+                    "type": "integer"
+                  },
+                  "opponent_first_name": {
+                    "type": "string"
+                  },
+                  "opponent_second_name": {
+                    "type": "string"
+                  },
+                  "opponent_picture": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "date_created",
+                  "is_ai_chat",
+                  "is_group_chat",
+                  "opponent_id",
+                  "opponent_first_name",
+                  "opponent_second_name",
+                  "opponent_picture"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat_rooms_with_messages/{id}": {
+      "get": {
+        "summary": "Retrieves a chat room with messages",
+        "tags": [
+          "Chat Rooms"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "chat room found with messages",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "overall_sentiment_analysis_score": {
+                  "type": "number"
+                },
+                "date_created": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "is_ai_chat": {
+                  "type": "boolean"
+                },
+                "is_group_chat": {
+                  "type": "boolean"
+                },
+                "opponent_id": {
+                  "type": "integer"
+                },
+                "opponent_first_name": {
+                  "type": "string"
+                },
+                "opponent_second_name": {
+                  "type": "string"
+                },
+                "opponent_picture": {
+                  "type": "string"
+                },
+                "messages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "sender_id": {
+                        "type": "integer"
+                      },
+                      "receiver_id": {
+                        "type": "integer"
+                      },
+                      "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "sentiment_analysis_score": {
+                        "type": "number"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "message_type": {
+                        "type": "string"
+                      },
+                      "chat_room_id": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "sender_id",
+                      "receiver_id",
+                      "content",
+                      "message_type"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "date_created",
+                "is_ai_chat",
+                "is_group_chat",
+                "opponent_id",
+                "opponent_first_name",
+                "opponent_second_name",
+                "opponent_picture",
+                "messages"
+              ]
+            }
+          }
+        }
+      }
+    },
     "/chat_rooms": {
       "get": {
         "summary": "Retrieves all chat rooms",
@@ -574,190 +752,6 @@
         }
       }
     },
-    "/chat_room_users": {
-      "get": {
-        "summary": "Retrieves all chat room users",
-        "tags": [
-          "Chat Room Users"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "chat room users found",
-            "schema": {
-              "type": "array",
-              "items": {
-                "properties": {
-                  "id": {
-                    "type": "integer"
-                  },
-                  "chat_room_id": {
-                    "type": "integer"
-                  },
-                  "user_id": {
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "id",
-                  "chat_room_id",
-                  "user_id"
-                ]
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Creates a chat room user",
-        "tags": [
-          "Chat Room Users"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "chat_room_user",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "chat_room_id": {
-                  "type": "integer"
-                },
-                "user_id": {
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "chat_room_id",
-                "user_id"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "chat room user created"
-          },
-          "422": {
-            "description": "invalid request"
-          }
-        }
-      }
-    },
-    "/chat_room_users/{id}": {
-      "get": {
-        "summary": "Retrieves a chat room user",
-        "tags": [
-          "Chat Room Users"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "integer",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "chat room user found",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "integer"
-                },
-                "chat_room_id": {
-                  "type": "integer"
-                },
-                "user_id": {
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "id",
-                "chat_room_id",
-                "user_id"
-              ]
-            }
-          },
-          "404": {
-            "description": "chat room user not found"
-          }
-        }
-      },
-      "put": {
-        "summary": "Updates a chat room user",
-        "tags": [
-          "Chat Room Users"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "integer",
-            "required": true
-          },
-          {
-            "name": "chat_room_user",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "chat_room_id": {
-                  "type": "integer"
-                },
-                "user_id": {
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "chat_room_id",
-                "user_id"
-              ]
-            }
-          }
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "chat room user updated"
-          },
-          "422": {
-            "description": "invalid request"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Deletes a chat room user",
-        "tags": [
-          "Chat Room Users"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "integer",
-            "required": true
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "chat room user deleted"
-          }
-        }
-      }
-    },
     "/messages": {
       "get": {
         "summary": "Retrieves all messages",
@@ -798,6 +792,9 @@
                   },
                   "chat_room_id": {
                     "type": "integer"
+                  },
+                  "read": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -848,6 +845,9 @@
                 },
                 "chat_room_id": {
                   "type": "integer"
+                },
+                "read": {
+                  "type": "boolean"
                 }
               },
               "required": [
@@ -916,6 +916,9 @@
                 },
                 "chat_room_id": {
                   "type": "integer"
+                },
+                "read": {
+                  "type": "boolean"
                 }
               },
               "required": [
@@ -971,6 +974,9 @@
                 },
                 "chat_room_id": {
                   "type": "integer"
+                },
+                "read": {
+                  "type": "boolean"
                 }
               },
               "required": [
@@ -1074,6 +1080,12 @@
                   },
                   "survey_result": {
                     "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -1153,6 +1165,12 @@
                   "type": "boolean"
                 },
                 "survey_result": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
                   "type": "string"
                 }
               },
@@ -1241,6 +1259,12 @@
                 },
                 "survey_result": {
                   "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
                 }
               },
               "required": [
@@ -1328,6 +1352,12 @@
                   "type": "boolean"
                 },
                 "survey_result": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
                   "type": "string"
                 }
               }

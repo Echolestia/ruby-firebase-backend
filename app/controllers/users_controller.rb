@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     end
     
     def user_params
-      params.require(:user).permit(:user_type, :profile, :first_name, :second_name, :age, :occupation, :username, :phone_number, :gender, :pregnant, :marital_status, :pregnancy_week, :is_anonymous_login, :survey_result)
+      params.require(:user).permit(:email, :password, :user_type, :profile, :first_name, :second_name, :age, :occupation, :username, :phone_number, :gender, :pregnant, :marital_status, :pregnancy_week, :is_anonymous_login, :survey_result)
     end
     
   end

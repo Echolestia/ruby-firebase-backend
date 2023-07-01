@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api-docs'
   mount Rswag::Ui::Engine => '/api-docs'
   get '/api-docs/swagger.json' => proc { [200, {}, [File.read(Rails.root.join('api-docs', 'swagger.json'))]] }
+  get 'chat_rooms_for_user/:user_id', to: 'chat_rooms#chat_rooms_for_user'
+  get 'chat_rooms_with_messages/:id', to: 'chat_rooms#show_with_messages'
+
 
   Rails.application.routes.draw do
     resources :users
