@@ -30,21 +30,30 @@ default: &default
 #   encoding: unicode
 #   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
+### WORKING BELOW BUT I CHANGED TO SQLITE AGAIN FOR PROD HEHE - roger
 development:
   <<: *default
   database: db/development.sqlite3
 
+# test:
+#   <<: *default
+#   database: myapp_test
+
+# production:
+#   adapter: postgresql
+#   encoding: unicode
+#   pool: 5
+#   timeout: 5000
+#   username: admin
+#   password: admin
+#   database: postgres
+#   host: /cloudsql/rubyintro:asia-southeast1:rubyintro
+
 test:
   <<: *default
-  database: myapp_test
+  database: db/development.sqlite3
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
-  timeout: 5000
-  username: admin
-  password: admin
-  database: postgres
-  host: /cloudsql/rubyintro:asia-southeast1:rubyintro
+  <<: *default
+  database: db/development.sqlite3
 

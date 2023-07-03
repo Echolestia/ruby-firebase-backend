@@ -14,16 +14,16 @@ exec 3>&1
 
 {
   echo -e "\n\033[1;33mBuilding the Docker image...\033[0m" >&3
-  docker build -t gcr.io/rubyintro/myapp . --no-cache && echo -e "\n\033[1;32mDocker image built successfully!\033[0m" >&3
+  docker build -t gcr.io/echolestia/rubybackend . --no-cache && echo -e "\n\033[1;32mDocker image built successfully!\033[0m" >&3
 
   echo -e "\n\033[1;33mAuthenticating Docker to gcloud...\033[0m" >&3
   gcloud auth configure-docker && echo -e "\n\033[1;32mDocker authenticated to gcloud successfully!\033[0m" >&3
 
   echo -e "\n\033[1;33mPushing the Docker image to gcloud...\033[0m" >&3
-  docker push gcr.io/rubyintro/myapp && echo -e "\n\033[1;32mDocker image pushed successfully!\033[0m" >&3
+  docker push gcr.io/echolestia/rubybackend && echo -e "\n\033[1;32mDocker image pushed successfully!\033[0m" >&3
 
   echo -e "\n\033[1;33mDeploying the Docker image to Cloud Run...\033[0m" >&3
-  gcloud run deploy rubybackend --image gcr.io/rubyintro/myapp --platform managed --region asia-southeast1 --allow-unauthenticated && echo -e "\n\033[1;32mDocker image deployed to Cloud Run successfully!\033[0m" >&3
+  gcloud run deploy rubybackend --image gcr.io/echolestia/rubybackend --platform managed --region asia-southeast1 --allow-unauthenticated && echo -e "\n\033[1;32mDocker image deployed to Cloud Run successfully!\033[0m" >&3
 } &
 
 while kill -0 $! >/dev/null 2>&1; do
