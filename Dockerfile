@@ -25,8 +25,8 @@ RUN chmod +x cloud_sql_proxy
 # Set environment variables
 ENV DB_SOCKET_DIR=/cloudsql
 ENV INSTANCE_CONNECTION_NAME=echolestia:asia-southeast1:rubybackend
-ENV PORT=8080
 ENV RAILS_ENV=production
+ENV SECRET_KEY_BASE=c8ab4819a89ef52ea363aa6306ab06b1a7caddbb20adf0b50d75f48f79ba7eaee0d22da06b334b8ccd9408554f75152b8c774589ed177623d6133477e47ed9cb
 
 
 # Copy the service account key into the Docker image
@@ -34,5 +34,4 @@ COPY /service_account.json /service_account.json
 
 # Start Cloud SQL Proxy, run migrations and start the Rails server
 CMD ./cloud_sql_proxy -dir=${DB_SOCKET_DIR} -instances=${INSTANCE_CONNECTION_NAME} -credential_file=/service_account.json & \
-    bundle exec rails db:migrate && bundle exec rails db:seed && \
     bundle exec rails s -p $PORT -b '0.0.0.0'
