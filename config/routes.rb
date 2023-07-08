@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   get '/api-docs/swagger.json' => proc { [200, {}, [File.read(Rails.root.join('api-docs', 'swagger.json'))]] }
   get 'chat_rooms_for_user/:user_id', to: 'chat_rooms#chat_rooms_for_user'
   get 'chat_rooms_with_messages/:id', to: 'chat_rooms#show_with_messages'
+  
+  get    '/login',   to: 'sessions#new'
+  post   '/login',   to: 'sessions#create'
+  delete '/logout',  to: 'sessions#destroy'
 
 
   Rails.application.routes.draw do

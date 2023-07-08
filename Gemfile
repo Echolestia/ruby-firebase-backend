@@ -59,4 +59,5 @@ gem 'rswag-api'
 gem 'rswag-ui'
 gem 'rswag-specs', '~> 2.0'
 
+gem 'rack-cors'
 
