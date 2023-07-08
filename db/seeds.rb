@@ -8,11 +8,10 @@
 # db/seeds.rb
 
 # Create some users
-# Create more users
 users = 50.times.map do |i|
   User.create(
     email: "user#{i}@email.com", 
-    password: "password#{i} encrypted", 
+    password: "password#{i}", 
     user_type: i.zero? ? 'admin' : 'user', 
     profile: "https://picsum.photos/200", 
     first_name: "User#{i}", 
