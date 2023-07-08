@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_06_19_121144) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "articles", force: :cascade do |t|
     t.datetime "published_date"
     t.datetime "created_date"
@@ -28,8 +31,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_121144) do
     t.datetime "date_created"
     t.boolean "is_ai_chat"
     t.boolean "is_group_chat"
-    t.integer "user1_id"
-    t.integer "user2_id"
+    t.bigint "user1_id"
+    t.bigint "user2_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user1_id"], name: "index_chat_rooms_on_user1_id"
@@ -43,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_121144) do
     t.float "sentiment_analysis_score"
     t.text "content"
     t.string "message_type"
-    t.integer "chat_room_id", null: false
+    t.bigint "chat_room_id", null: false
     t.boolean "read"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
