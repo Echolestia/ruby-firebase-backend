@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :require_login
+    before_action :authenticate, except: [:create]
     before_action :set_user, only: [:show, :update, :destroy]
   
     # GET /users
@@ -17,11 +17,22 @@ class UsersController < ApplicationController
     def create
       @user = User.new(user_params)
       if @user.save
-        render json: @user, status: :created, location: @user
+        # Set token to expire in 24 hours
+        token_payload = {
+          user_id: @user.id,
+          exp: (Time.now + 24.hours).to_i
+        }
+        token = JWT.encode(token_payload, Rails.application.secret_key_base, 'HS256')
+        render json: { 
+          status: 'Logged in', 
+          token: token,
+          user_id: @user.id
+        }.merge(@user.as_json(except: [:created_at, :updated_at, :id])), status: :created, location: @user  # Merge user fields    
       else
         render json: @user.errors, status: :unprocessable_entity
       end
     end
+
   
     # PATCH/PUT /users/1
     def update

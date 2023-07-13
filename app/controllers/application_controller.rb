@@ -3,6 +3,7 @@ class ApplicationController < ActionController::API
 
   def authenticate
     authorization_header = request.headers[:authorization]
+    puts authorization_header
 
     if authorization_header
       token = authorization_header.split(' ')[1]

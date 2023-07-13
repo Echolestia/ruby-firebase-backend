@@ -10,7 +10,7 @@ class TokensController < ApplicationController
         exp: (Time.now + 24.hours).to_i
       }
       token = JWT.encode(token_payload, Rails.application.secret_key_base, 'HS256')
-      render json: { status: 'Logged in', token: token }, status: :ok
+      render json: { status: 'Logged in', token: token, user_id: user.id }, status: :ok
     else
       render json: { error: 'Invalid email/password combination' }, status: :unprocessable_entity
     end

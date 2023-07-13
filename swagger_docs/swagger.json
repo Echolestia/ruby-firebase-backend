@@ -8,15 +8,13 @@
       "type": "apiKey",
       "name": "Authorization",
       "in": "header"
+    },
+    "optionalBearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
     }
   },
-  "security": [
-    {
-      "Bearer": [
-
-      ]
-    }
-  ],
   "paths": {
     "/articles": {
       "get": {
@@ -1485,5 +1483,17 @@
         }
       }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [
+
+      ]
+    },
+    {
+      "optionalBearer": [
+
+      ]
+    }
+  ]
 }

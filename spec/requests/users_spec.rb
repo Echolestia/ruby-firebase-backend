@@ -36,6 +36,43 @@ describe 'Users API' do
         run_test!
       end
     end
+
+    post 'Creates a user' do
+      tags 'Users'
+      consumes 'application/json'
+      parameter name: :user, in: :body, schema: {
+        type: :object,
+        properties: {
+          user_type: { type: :string },
+          profile: { type: :string },
+          first_name: { type: :string },
+          second_name: { type: :string },
+          age: { type: :integer },
+          occupation: { type: :string },
+          username: { type: :string },
+          phone_number: { type: :string },
+          gender: { type: :string },
+          pregnant: { type: :boolean },
+          marital_status: { type: :string },
+          pregnancy_week: { type: :integer },
+          is_anonymous_login: { type: :boolean },
+          survey_result: { type: :string }, 
+          email: {type: :string},
+          password: {type: :string}
+        },
+        required: ['first_name', 'second_name', 'username']
+      }
+
+      response '201', 'user created' do
+        let(:user) { { first_name: 'John', second_name: 'Doe', username: 'johndoe' } }
+        run_test!
+      end
+
+      response '422', 'invalid request' do
+        let(:user) { { first_name: 'John' } }
+        run_test!
+      end
+    end
   end
 
   path '/users/{id}' do
@@ -76,50 +113,6 @@ describe 'Users API' do
         run_test!
       end
     end
-  end
-  path '/users' do
-    # [Existing GET spec...]
-
-    post 'Creates a user' do
-      tags 'Users'
-      consumes 'application/json'
-      parameter name: :user, in: :body, schema: {
-        type: :object,
-        properties: {
-          user_type: { type: :string },
-          profile: { type: :string },
-          first_name: { type: :string },
-          second_name: { type: :string },
-          age: { type: :integer },
-          occupation: { type: :string },
-          username: { type: :string },
-          phone_number: { type: :string },
-          gender: { type: :string },
-          pregnant: { type: :boolean },
-          marital_status: { type: :string },
-          pregnancy_week: { type: :integer },
-          is_anonymous_login: { type: :boolean },
-          survey_result: { type: :string }, 
-          email: {type: :string},
-          password: {type: :string}
-        },
-        required: ['first_name', 'second_name', 'username']  # Update required fields as necessary.
-      }
-
-      response '201', 'user created' do
-        let(:user) { { first_name: 'John', second_name: 'Doe', username: 'johndoe' } }  # Add more parameters as necessary.
-        run_test!
-      end
-
-      response '422', 'invalid request' do
-        let(:user) { { first_name: 'John' } }  # Missing required parameters.
-        run_test!
-      end
-    end
-  end
-
-  path '/users/{id}' do
-    # [Existing GET spec...]
 
     put 'Updates a user' do
       tags 'Users'
@@ -149,7 +142,7 @@ describe 'Users API' do
 
       response '200', 'user updated' do
         let(:id) { User.create(user_params).id }
-        let(:user) { { first_name: 'Jane' } }  # Update necessary fields.
+        let(:user) { { first_name: 'Jane' } }
         run_test!
       end
 
@@ -160,7 +153,7 @@ describe 'Users API' do
 
       response '422', 'invalid request' do
         let(:id) { User.create(user_params).id }
-        let(:user) { { first_name: '' } }  # Invalid parameters.
+        let(:user) { { first_name: '' } }
         run_test!
       end
     end

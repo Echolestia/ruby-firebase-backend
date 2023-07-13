@@ -9,6 +9,18 @@ RSpec.configure do |config|
       info: {
         title: 'API V1',
       },
+      securityDefinitions: {
+        Bearer: {
+          type: :apiKey,
+          name: 'Authorization',
+          in: :header
+        }
+      },
+      security: [
+        {
+          Bearer: []
+        }
+      ],
       paths: {}
     }
   }

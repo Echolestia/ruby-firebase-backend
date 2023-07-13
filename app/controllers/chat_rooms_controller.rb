@@ -1,5 +1,5 @@
 class ChatRoomsController < ApplicationController
-    before_action :require_login
+    before_action :authenticate
     before_action :set_chat_room, only: [:show, :update, :destroy]
   
     # GET /chat_rooms
@@ -43,7 +43,7 @@ class ChatRoomsController < ApplicationController
     def show_with_messages
       set_chat_room
       @chat_room_with_messages = @chat_room.as_json.merge({
-        messages: @chat_room.messages
+        messages: @chat_room.messages.order(created_at: :asc)
       })
       
       render json: @chat_room_with_messages
@@ -81,7 +81,7 @@ class ChatRoomsController < ApplicationController
     end
     
     def chat_room_params
-      params.require(:chat_room).permit(:overall_sentiment_analysis_score, :date_created, :is_ai_chat, :is_group_chat)
+      params.require(:chat_room).permit(:user1_id, :user2_id, :overall_sentiment_analysis_score, :date_created, :is_ai_chat, :is_group_chat)
     end
     
   end
