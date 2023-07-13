@@ -16,6 +16,8 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'rest-client'
 gem 'firebase'
 gem 'google-cloud-firestore'
+gem 'jwt'
+
 
 
 gem 'pg'

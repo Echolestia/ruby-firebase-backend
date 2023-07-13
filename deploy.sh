@@ -13,6 +13,9 @@ total_estimated_time=130
 exec 3>&1
 
 {
+  echo -e "\n\033[1;33m🔄 Updating Swagger for Rails...\033[0m" >&3
+  bundle exec rake swaggerize && echo -e "\n\033[1;32m✅ Swagger for Rails updated successfully!\033[0m" >&3
+
   echo -e "\n\033[1;33m🔨 Building the Docker image...\033[0m" >&3
   docker build -t gcr.io/echolestia/rubybackend . --no-cache && echo -e "\n\033[1;32m✅ Docker image built successfully!\033[0m" >&3
 

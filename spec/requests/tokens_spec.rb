@@ -1,11 +1,11 @@
-# spec/requests/sessions_spec.rb
+# spec/requests/tokens_spec.rb
 require 'swagger_helper'
 
-describe 'Sessions API' do
+describe 'Tokens API' do
 
   path '/login' do
-    post 'Create a new session' do
-      tags 'Sessions'
+    post 'Create a new token' do
+      tags 'Tokens'
       consumes 'application/json'
       parameter name: :session, in: :body, schema: {
         type: :object,
@@ -16,13 +16,13 @@ describe 'Sessions API' do
         required: [ 'email', 'password' ]
       }
 
-      response '200', 'Session created' do
+      response '200', 'Token created' do
         schema type: :object,
         properties: {
           status: { type: :string },
-          user_id: { type: :integer }
+          token: { type: :string }
         },
-        required: [ 'status', 'user_id' ]
+        required: [ 'status', 'token' ]
         
         let(:session) { { email: 'test@example.com', password: 'password' } }
         run_test!
@@ -36,23 +36,6 @@ describe 'Sessions API' do
         required: [ 'error' ]
         
         let(:session) { { email: 'test@example.com', password: 'wrong_password' } }
-        run_test!
-      end
-    end
-  end
-
-  path '/logout' do
-    delete 'Destroy a session' do
-      tags 'Sessions'
-      produces 'application/json'
-
-      response '200', 'Session destroyed' do
-        schema type: :object,
-        properties: {
-          status: { type: :string }
-        },
-        required: [ 'status' ]
-        
         run_test!
       end
     end

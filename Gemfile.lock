@@ -296,6 +296,7 @@ DEPENDENCIES
   dotenv-rails
   firebase
   google-cloud-firestore
+  jwt
   pg
   puma (~> 5.0)
   rack-cors

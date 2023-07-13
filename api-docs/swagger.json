@@ -1028,9 +1028,9 @@
     },
     "/login": {
       "post": {
-        "summary": "Create a new session",
+        "summary": "Create a new token",
         "tags": [
-          "Sessions"
+          "Tokens"
         ],
         "consumes": [
           "application/json"
@@ -1058,20 +1058,20 @@
         ],
         "responses": {
           "200": {
-            "description": "Session created",
+            "description": "Token created",
             "schema": {
               "type": "object",
               "properties": {
                 "status": {
                   "type": "string"
                 },
-                "user_id": {
-                  "type": "integer"
+                "token": {
+                  "type": "string"
                 }
               },
               "required": [
                 "status",
-                "user_id"
+                "token"
               ]
             }
           },
@@ -1086,33 +1086,6 @@
               },
               "required": [
                 "error"
-              ]
-            }
-          }
-        }
-      }
-    },
-    "/logout": {
-      "delete": {
-        "summary": "Destroy a session",
-        "tags": [
-          "Sessions"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "Session destroyed",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "status"
               ]
             }
           }

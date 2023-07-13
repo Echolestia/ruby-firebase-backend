@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+    before_action :authenticate
     before_action :set_article, only: [:show, :update, :destroy]
     before_action :set_user_group, only: [:by_user_group]
   
