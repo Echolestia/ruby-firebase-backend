@@ -13,15 +13,20 @@ class MessagesController < ApplicationController
       render json: @message
     end
   
-    # POST /messages
+   # POST /messages
     def create
       @message = Message.new(message_params)
       if @message.save
+        MessageChannel.broadcast_to(@message.chat_room_id, { type: "message", message: @message.as_json })
         render json: @message, status: :created, location: @message
       else
         render json: @message.errors, status: :unprocessable_entity
       end
     end
+
+
+
+
   
     # PATCH/PUT /messages/1
     def update

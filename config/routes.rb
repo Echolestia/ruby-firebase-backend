@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'chat_rooms_with_messages/:id', to: 'chat_rooms#show_with_messages'
   
   post '/login',  to: 'tokens#create'  # notice change here
+  mount ActionCable.server => '/cable'
 
   resources :users
   resources :chat_rooms
