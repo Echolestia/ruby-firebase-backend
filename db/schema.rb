@@ -31,8 +31,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_08_173642) do
     t.datetime "date_created"
     t.boolean "is_ai_chat"
     t.boolean "is_group_chat"
-    t.bigint "user1_id"
-    t.bigint "user2_id"
+    t.integer "user1_id"
+    t.integer "user2_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user1_id"], name: "index_chat_rooms_on_user1_id"
@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_08_173642) do
     t.float "sentiment_analysis_score"
     t.text "content"
     t.string "message_type"
-    t.bigint "chat_room_id", null: false
+    t.integer "chat_room_id", null: false
     t.boolean "read"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

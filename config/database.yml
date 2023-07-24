@@ -46,8 +46,9 @@ production:
   timeout: 5000
   username: admin
   password: admin
-  database: postgres
-  host: /cloudsql/echolestia:asia-southeast1:rubybackend
+  database: postgres-production
+  host: localhost
+  port: 8080
 
 development:
   adapter: postgresql
@@ -56,7 +57,7 @@ development:
   timeout: 5000
   username: admin
   password: admin
-  database: postgres
+  database: postgres-development
   host: localhost
   port: 8080
 
@@ -70,6 +71,7 @@ test:
   database: postgres
   host: localhost
   port: 8080
+
 
 
 # test:
