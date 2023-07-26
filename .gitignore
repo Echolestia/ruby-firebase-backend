@@ -43,3 +43,7 @@ service_account.json
 cloud-sql-proxy
 
 /config/secrets.yml
+
+# Ignore joshua's openssl files
+openssl-1.1.1i.tar.gz
+openssl-1.1.1i/
