@@ -1,3 +1,4 @@
+# app/channels/application_cable/connection.rb
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
     identified_by :current_user
@@ -22,6 +23,8 @@ module ApplicationCable
       else
         reject_unauthorized_connection
       end
+    rescue JWT::DecodeError => e
+      reject_unauthorized_connection
     rescue
       reject_unauthorized_connection
     end

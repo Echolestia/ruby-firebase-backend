@@ -68,4 +68,9 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'factory_bot_rails'
 gem 'simplecov', require: false, group: :test
 
+group :test do
+  gem 'action-cable-testing'
+end
+
+
 
