@@ -42,12 +42,22 @@ class ChatRoomsController < ApplicationController
     # GET /chat_rooms_with_messages/:id
     def show_with_messages
       set_chat_room
+      opponent_id = @chat_room.user1_id == @current_user.id ? @chat_room.user2_id : @chat_room.user1_id
+      opponent = User.find(opponent_id)
+      unread_messages_count = @chat_room.messages.where(read: false, receiver_id: @current_user.id).count
+
       @chat_room_with_messages = @chat_room.as_json.merge({
+        opponent_id: opponent_id, 
+        opponent_first_name: opponent.first_name, 
+        opponent_second_name: opponent.second_name, 
+        opponent_picture: opponent.profile,
+        unread_messages_count: unread_messages_count,
         messages: @chat_room.messages.order(created_at: :asc)
       })
-      
+
       render json: @chat_room_with_messages
     end
+
 
 
   
