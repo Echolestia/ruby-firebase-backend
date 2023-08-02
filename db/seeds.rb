@@ -6,20 +6,41 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 # db/seeds.rb
+require 'faker'
 
 # Create some users
+# users = 50.times.map do |i|
+#   User.create(
+#     email: "user#{i}@email.com", 
+#     password: "password#{i}", 
+#     user_type: i.zero? ? 'admin' : 'user', 
+#     profile: "https://picsum.photos/200", 
+#     first_name: "User#{i}", 
+#     second_name: "Last#{i}", 
+#     age: 20+i, 
+#     occupation: 'Occupation', 
+#     username: "user#{i}", 
+#     phone_number: '1234567890', 
+#     gender: i.even? ? 'male' : 'female', 
+#     pregnant: false, 
+#     marital_status: 'single', 
+#     pregnancy_week: nil, 
+#     is_anonymous_login: false, 
+#     survey_result: 'result1'
+#   )
+# end
 users = 50.times.map do |i|
   User.create(
-    email: "user#{i}@email.com", 
+    email: Faker::Internet.email,
     password: "password#{i}", 
     user_type: i.zero? ? 'admin' : 'user', 
-    profile: "https://picsum.photos/200", 
-    first_name: "User#{i}", 
-    second_name: "Last#{i}", 
-    age: 20+i, 
-    occupation: 'Occupation', 
-    username: "user#{i}", 
-    phone_number: '1234567890', 
+    profile: Faker::Avatar.image,
+    first_name: Faker::Name.first_name, 
+    second_name: Faker::Name.last_name, 
+    age: Faker::Number.between(from: 20, to: 60), 
+    occupation: Faker::Job.title,
+    username: Faker::Internet.username, 
+    phone_number: Faker::PhoneNumber.phone_number, 
     gender: i.even? ? 'male' : 'female', 
     pregnant: false, 
     marital_status: 'single', 
@@ -28,6 +49,7 @@ users = 50.times.map do |i|
     survey_result: 'result1'
   )
 end
+
 
 # Create more chat rooms
 chat_rooms = 50.times.map do |i|
