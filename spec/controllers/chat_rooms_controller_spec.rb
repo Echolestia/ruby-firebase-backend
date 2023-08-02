@@ -5,7 +5,7 @@ RSpec.describe ChatRoomsController, type: :controller do
   let!(:chat_room) { ChatRoom.find_by(user1_id: user.id) }
   
   before do
-    request.headers['Authorization'] = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NywiZXhwIjoxNjkwMTc4Njg1fQ.RaI1ml2JGvk9R08yYgj9Hx5RXw3-j4w4_lx0okgLVIA"
+    request.headers['Authorization'] = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NywiZXhwIjoxNjkxMDc2Mzk1fQ.G--aqViDpL5rINIb-0QvgcudAYQ5St-QM2frlG-awEg"
   end
 
   describe "GET #index" do

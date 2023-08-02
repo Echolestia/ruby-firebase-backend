@@ -46,7 +46,8 @@ class ArticlesController < ApplicationController
   
     private
     def set_article
-      @article = Article.find(params[:id])
+      @article = Article.find_by(id: params[:id])
+      render json: { error: "Article not found" }, status: :not_found if @article.nil?
     end
     
     def article_params

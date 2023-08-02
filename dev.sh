@@ -33,4 +33,4 @@ bin/rails db:migrate RAILS_ENV=development
 
 # 🎉 Start the Rails server 🎉
 echo -e "\e[35m🚀 Starting Rails server...\e[0m"
-rails server -p 3000
+rails server -p 3001

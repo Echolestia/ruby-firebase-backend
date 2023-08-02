@@ -5,7 +5,7 @@ RSpec.describe UsersController, type: :controller do
   let!(:user) { User.find_by(email: "user1@email.com") }
   
   before do
-    request.headers['Authorization'] = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NywiZXhwIjoxNjkwMTc4Njg1fQ.RaI1ml2JGvk9R08yYgj9Hx5RXw3-j4w4_lx0okgLVIA"
+    request.headers['Authorization'] = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NywiZXhwIjoxNjkxMDc2Mzk1fQ.G--aqViDpL5rINIb-0QvgcudAYQ5St-QM2frlG-awEg"
   end
 
   describe "GET #index" do
