@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ApplicationCable::Connection, type: :channel do
   let(:user) { create(:user) }
-  let(:token) { 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NywiZXhwIjoxNjkxMDc2Mzk1fQ.G--aqViDpL5rINIb-0QvgcudAYQ5St-QM2frlG-awEg' }
+  let(:token) { 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NywiZXhwIjoxNjkxMDc2Mzk1fQ.G--aqViDpL5rINIb-0QvgcudAYQ5St-QM2frlG-awEg' }
   
   context 'with valid token' do
     before do

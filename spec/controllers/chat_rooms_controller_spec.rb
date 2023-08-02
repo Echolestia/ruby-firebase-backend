@@ -92,4 +92,65 @@ RSpec.describe ChatRoomsController, type: :controller do
       }.to change(ChatRoom, :count).by(-1)
     end
   end
+
+  ## pm4 stuff
+  describe "POST #create" do
+    # boundary value testing
+    context "with boundary case params" do
+      let(:boundary_chat_room_params) {
+        { user1_id: user.id, user2_id: User.last.id, overall_sentiment_analysis_score: 0.0, date_created: Time.now, is_ai_chat: false, is_group_chat: false }
+      }
+  
+      it "creates a new ChatRoom with boundary overall_sentiment_analysis_score and returns a created (status 201) response" do
+        expect {
+          post :create, params: { chat_room: boundary_chat_room_params }
+        }.to change(ChatRoom, :count).by(1)
+        expect(response).to have_http_status(201)
+      end
+    end
+  
+    # ROBUST boundary value testing
+    context "with out of boundary case params" do
+      let(:out_of_bounds_chat_room_params) {
+        { user1_id: user.id, user2_id: User.last.id, overall_sentiment_analysis_score: -0.1, date_created: Time.now, is_ai_chat: false, is_group_chat: false }
+      }
+  
+      it "does not create a new ChatRoom with out of bounds overall_sentiment_analysis_score and returns an unprocessable entity (status 422) response" do
+        expect {
+          post :create, params: { chat_room: out_of_bounds_chat_room_params }
+        }.not_to change(ChatRoom, :count)
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
+
+  describe "PUT #update" do
+    # boundary value testing
+    context "with boundary case params" do
+      let(:boundary_attributes) {
+        { overall_sentiment_analysis_score: 1.0 }
+      }
+  
+      it "updates the requested chat room's overall_sentiment_analysis_score to boundary value and returns a success response (status 200)" do
+        put :update, params: { id: chat_room.to_param, chat_room: boundary_attributes }
+        chat_room.reload
+        expect(chat_room.overall_sentiment_analysis_score).to eq(1.0)
+        expect(response).to have_http_status(200)
+      end
+    end
+  
+    # robust boundary value testing
+    context "with out of boundary case params" do
+      let(:out_of_bounds_attributes) {
+        { overall_sentiment_analysis_score: 1.1 }
+      }
+  
+      it "does not update the chat room's overall_sentiment_analysis_score to out of bounds value and returns an unprocessable entity (status 422) response" do
+        put :update, params: { id: chat_room.to_param, chat_room: out_of_bounds_attributes }
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
+  
+  
 end

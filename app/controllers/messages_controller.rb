@@ -80,7 +80,7 @@ class MessagesController < ApplicationController
     end
     
     def message_params
-      params.require(:message).permit(:read, :sender_id, :receiver_id, :timestamp, :sentiment_analysis_score, :content, :message_type, :chat_room_id)
+      params.require(:message).permit(:read, :sender_id, :receiver_id, :timestamp, :sentiment_analysis_score, :content, :message_type, :chat_room_id) if params[:message].present?
     end
     
   end

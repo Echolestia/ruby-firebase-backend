@@ -77,4 +77,52 @@ RSpec.describe MessagesController, type: :controller do
       }.to change(Message, :count).by(-1)
     end
   end
+
+  ## PM 4 Stuff
+  describe "POST #create" do
+    # Boundary Value Testing
+    context "with boundary case params" do
+      let(:max_length_string) { "a" * 35555 } # Assuming the message content VARCHAR length is 35555 characters.
+  
+      let(:boundary_message_params) {
+        { read: false, sender_id: 1, receiver_id: 2, timestamp: Time.now, sentiment_analysis_score: 0.85, content: max_length_string, message_type: 'text', chat_room_id: 1 }
+      }
+  
+      it "creates a new Message with max length content and returns a created (status 201) response" do
+        expect {
+          post :create, params: { message: boundary_message_params }
+        }.to change(Message, :count).by(1)
+        expect(response).to have_http_status(201)
+      end
+    end
+  
+    # Robust Boundary Value Testing
+    context "with out of boundary case params" do
+      let(:out_of_bounds_string) { "a" * 35556 } # Length greater than typical VARCHAR in SQL.
+  
+      let(:out_of_bounds_message_params) {
+        { read: false, sender_id: 1, receiver_id: 2, timestamp: Time.now, sentiment_analysis_score: 0.85, content: out_of_bounds_string, message_type: 'text', chat_room_id: 1 }
+      }
+  
+      it "does not create a new Message with out of bounds length content and returns an unprocessable entity (status 422) response" do
+        expect {
+          post :create, params: { message: out_of_bounds_message_params }
+        }.not_to change(Message, :count)
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  
+    # Worst Case Testing
+    context "with worst case params (empty params)" do
+      let(:empty_params) { {} }
+  
+      it "does not create a new Message and returns an unprocessable entity (status 422) response" do
+        expect {
+          post :create, params: { message: empty_params }
+        }.not_to change(Message, :count)
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
+  
 end

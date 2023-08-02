@@ -36,7 +36,9 @@ class UsersController < ApplicationController
   
     # PATCH/PUT /users/1
     def update
-      if @user.update(user_params)
+      if user_params.nil? || user_params.empty?
+        render json: { error: 'invalid parameters' }, status: :unprocessable_entity
+      elsif @user.update(user_params)
         render json: @user
       else
         render json: @user.errors, status: :unprocessable_entity
@@ -54,7 +56,7 @@ class UsersController < ApplicationController
     end
     
     def user_params
-      params.require(:user).permit(:email, :password, :user_type, :profile, :first_name, :second_name, :age, :occupation, :username, :phone_number, :gender, :pregnant, :marital_status, :pregnancy_week, :is_anonymous_login, :survey_result)
+      params.require(:user).permit(:email, :password, :user_type, :profile, :first_name, :second_name, :age, :occupation, :username, :phone_number, :gender, :pregnant, :marital_status, :pregnancy_week, :is_anonymous_login, :survey_result) if params[:user].present?
     end
     
   end
