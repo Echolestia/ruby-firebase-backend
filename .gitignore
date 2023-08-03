@@ -47,3 +47,12 @@ cloud-sql-proxy
 # Ignore joshua's openssl files
 openssl-1.1.1i.tar.gz
 openssl-1.1.1i/
+
+./coverage/
+coverage/
+cloud-sql-proxy
+
+cache/*
+extensions/*
+gems/*
+specifications/*

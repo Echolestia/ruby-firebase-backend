@@ -5,7 +5,7 @@ RSpec.describe UsersController, type: :controller do
   let!(:user) { User.find_by(email: "user1@email.com") }
   
   before do
-    request.headers['Authorization'] = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NywiZXhwIjoxNjkxMDc2Mzk1fQ.G--aqViDpL5rINIb-0QvgcudAYQ5St-QM2frlG-awEg"
+    request.headers['Authorization'] = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NywiZXhwIjoxNjkxMTI0NDEwfQ.x32oXiQ3use3UYNNyNJEdOnIXwpJIjEAjRHSWgDSv-A"
   end
 
   describe "GET #index" do
@@ -158,5 +158,33 @@ RSpec.describe UsersController, type: :controller do
       end
     end
   end
+
+  ## FUZZER TEST
+  describe "POST #create - Fuzzer Test" do
+    context "with random data" do
+      let(:random_string) { (0...50).map { ('a'..'z').to_a[rand(26)] }.join }
+      let(:random_email) { "#{random_string}@#{random_string}.com" }
+  
+      let(:fuzz_user_params) {
+        {
+          email: random_email,
+          password: random_string
+        }
+      }
+  
+      it "handles random input data gracefully" do
+        # Logging the generated input
+        puts "\nGenerated user fuzz test input: #{fuzz_user_params} \n------\n"
+  
+        post :create, params: { user: fuzz_user_params }
+  
+        # Logging the server response
+        puts "Server response: #{response.body}\n"
+  
+        expect(response.status).not_to eq(500)
+      end
+    end
+  end
+  
 
 end

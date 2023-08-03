@@ -6,7 +6,7 @@ RSpec.describe MessagesController, type: :controller do
   puts :message
 
   before do
-    request.headers['Authorization'] = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NywiZXhwIjoxNjkxMDc2Mzk1fQ.G--aqViDpL5rINIb-0QvgcudAYQ5St-QM2frlG-awEg"
+    request.headers['Authorization'] = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NywiZXhwIjoxNjkxMTI0NDEwfQ.x32oXiQ3use3UYNNyNJEdOnIXwpJIjEAjRHSWgDSv-A"
   end
 
   describe "GET #index" do

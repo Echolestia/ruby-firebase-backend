@@ -5,7 +5,7 @@ RSpec.describe ArticlesController, type: :controller do
   let!(:article) { Article.find_by(id: 14) }
 
   before do
-    request.headers['Authorization'] = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NywiZXhwIjoxNjkxMDc2Mzk1fQ.G--aqViDpL5rINIb-0QvgcudAYQ5St-QM2frlG-awEg"
+    request.headers['Authorization'] = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NywiZXhwIjoxNjkxMTI0NDEwfQ.x32oXiQ3use3UYNNyNJEdOnIXwpJIjEAjRHSWgDSv-A"
   end
 
   describe "GET #index" do
@@ -211,4 +211,39 @@ RSpec.describe ArticlesController, type: :controller do
       end
     end
   end
+
+  # FUZZER TEST
+  describe "POST #create - Fuzzer Test" do
+    context "with random data" do
+      let(:random_string) { (0...50).map { ('a'..'z').to_a[rand(26)] }.join }
+      let(:random_url) { "http://#{random_string}.com" }
+      let(:random_date) { Time.at(rand * Time.now.to_i).iso8601 }
+  
+      let(:fuzz_article_params) {
+        {
+          published_date: random_date,
+          created_date: random_date,
+          title: random_string,
+          author: random_string,
+          img_url: random_url,
+          url: random_url,
+          user_group: [random_string, random_string]
+        }
+      }
+  
+      it "handles random input data gracefully" do
+        # Logging the generated input
+        puts "\nGenerated article fuzz test input: #{fuzz_article_params} \n------\n"
+  
+        post :create, params: { article: fuzz_article_params }
+  
+        # Logging the server response
+        puts "Server response: #{response.body}\n"
+  
+        expect(response.status).not_to eq(500)
+      end
+    end
+  end
+  
+  
 end

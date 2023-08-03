@@ -4,7 +4,7 @@ require 'action_cable/testing/rspec'
 RSpec.describe MessageChannel, type: :channel do
 let!(:user) { User.find_by(email: "user1@email.com") }
   let!(:chat_room) { ChatRoom.find_by(user1_id: user.id) }
-  let(:token) { 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NywiZXhwIjoxNjkxMDc2Mzk1fQ.G--aqViDpL5rINIb-0QvgcudAYQ5St-QM2frlG-awEg' }
+  let(:token) { 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NywiZXhwIjoxNjkxMTI0NDEwfQ.x32oXiQ3use3UYNNyNJEdOnIXwpJIjEAjRHSWgDSv-A' }
 
 
 
