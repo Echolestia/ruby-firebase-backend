@@ -19,11 +19,11 @@ class ArticlesController < ApplicationController
       render json: @article
     end
     
-    # # GET /articles/ by user groups CREATE THIS ROUTE - user groups
-    # def by_user_group
-    #   @articles = Article.where("user_group like ?", @user_group)
-    #   render json: @articles
-    # end
+    # GET /articles/ by user groups CREATE THIS ROUTE - user groups
+    def by_user_group
+      @articles = Article.where("user_group like ?", @user_group)
+      render json: @articles
+    end
   
     # POST /articles
     def create
