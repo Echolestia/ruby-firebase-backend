@@ -2,13 +2,15 @@ require 'swagger_helper'
 
 describe 'Chat Rooms API' do
 
-  path '/chat_rooms_for_user/{user_id}' do
-    get 'Retrieves all chat rooms for a user' do
+  path '/chat_rooms' do
+
+    get 'Retrieve chat rooms' do
       tags 'Chat Rooms'
       produces 'application/json'
-      parameter name: :user_id, in: :path, type: :integer
+      parameter name: :ai, in: :query, type: :boolean, description: 'Retrieve only AI chat rooms if set to true'
+      parameter name: :user, in: :query, type: :integer, description: 'Retrieve chat rooms related to a specific user'
 
-      response '200', 'chat rooms found for user' do
+      response '200', 'chat rooms found' do
         schema type: :array, items: {
           type: :object,
           properties: {
@@ -22,166 +24,119 @@ describe 'Chat Rooms API' do
             opponent_second_name: { type: :string },
             opponent_picture: { type: :string },
             last_message: { type: :string },
-            unread_messages_count: {  type: :string }  
+            unread_messages_count: { type: :integer }
           },
-          required: ['id', 'date_created', 'is_ai_chat', 'is_group_chat', 'opponent_id', 'opponent_first_name', 'opponent_second_name', 'opponent_picture']
+          required: ['id', 'date_created', 'is_ai_chat', 'is_group_chat']
         }
 
         run_test!
       end
     end
-  end
 
-  path '/chat_rooms_with_messages/{id}' do
-    get 'Retrieves a chat room with messages' do
+    post 'Create a chat room' do
       tags 'Chat Rooms'
-      produces 'application/json'
-      parameter name: :id, in: :path, type: :integer
+      consumes 'application/json'
+      parameter name: :chat_room, in: :body, schema: {
+        type: :object,
+        properties: {
+          user1_id: { type: :integer },
+          user2_id: { type: :integer },
+          overall_sentiment_analysis_score: { type: :number },
+          date_created: { type: :string, format: 'date-time' },
+          is_ai_chat: { type: :boolean },
+          is_group_chat: { type: :boolean }
+        },
+        required: ['user1_id']
+      }
+      parameter name: :ai, in: :query, type: :boolean, description: 'Create an AI chat room'
 
-      response '200', 'chat room found with messages' do
+      response '201', 'Chat room created' do
         schema type: :object,
-          properties: {
-            id: { type: :integer },
-            overall_sentiment_analysis_score: { type: :number },
-            date_created: { type: :string, format: 'date-time' },
-            is_ai_chat: { type: :boolean },
-            is_group_chat: { type: :boolean },
-            opponent_id: { type: :integer },
-            opponent_first_name: { type: :string },
-            opponent_second_name: { type: :string },
-            opponent_picture: { type: :string },
-            messages: { type: :array, 
-              items: {
-                type: :object,
-                properties: {
-                  id: { type: :integer },
-                  sender_id: { type: :integer },
-                  receiver_id: { type: :integer },
-                  timestamp: { type: :string, format: 'date-time' },
-                  sentiment_analysis_score: { type: :number },
-                  content: { type: :string },
-                  message_type: { type: :string },
-                  chat_room_id: { type: :integer },
-                },
-                required: ['id', 'sender_id', 'receiver_id', 'content', 'message_type']
-              }
-            }
-          },
-          required: ['id', 'date_created', 'is_ai_chat', 'is_group_chat', 'opponent_id', 'opponent_first_name', 'opponent_second_name', 'opponent_picture', 'messages']
+        properties: {
+          id: { type: :integer },
+          user1_id: { type: :integer },
+          user2_id: { type: :integer },
+          overall_sentiment_analysis_score: { type: :number },
+          date_created: { type: :string, format: 'date-time' },
+          is_ai_chat: { type: :boolean },
+          is_group_chat: { type: :boolean }
+        }
+        run_test!
+      end
 
+      response '422', 'Invalid request' do
         run_test!
       end
     end
-  end
 
-  path '/chat_rooms' do
-    get 'Retrieves all chat rooms' do
-      tags 'Chat Rooms'
-      produces 'application/json'
+    path '/chat_rooms/{id}' do
 
-      response '200', 'chat rooms found' do
-        schema type: :array,
-          items: {
-            properties: {
-              id: { type: :integer },
-              overall_sentiment_analysis_score: { type: :number },
-              date_created: { type: :string, format: 'date-time' },
-              is_ai_chat: { type: :boolean },
-              is_group_chat: { type: :boolean },
-            },
-            required: ['id', 'date_created', 'is_ai_chat', 'is_group_chat']
+      get 'Retrieve a chat room' do
+        tags 'Chat Rooms'
+        produces 'application/json'
+        parameter name: :id, in: :path, type: :integer
+        parameter name: :withMessages, in: :query, type: :boolean, description: 'Include messages in the response if set to true'
+
+        response '200', 'Chat room retrieved' do
+          schema type: :object,
+          properties: {
+            user1_id: { type: :integer },
+            user1_first_name: { type: :string },
+            user1_second_name: { type: :string },
+            user1_picture: { type: :string },
+            unread_messages_count_user1: { type: :integer },
+            user2_id: { type: :integer },
+            user2_first_name: { type: :string },
+            user2_second_name: { type: :string },
+            user2_picture: { type: :string },
+            unread_messages_count_user2: { type: :integer },
+            messages: { type: :array, items: { type: :string } }
           }
-
-        run_test!
-      end
-    end
-
-    post 'Creates a chat room' do
-      tags 'Chat Rooms'
-      consumes 'application/json'
-      parameter name: :chat_room, in: :body, schema: {
-        type: :object,
-        properties: {
-          overall_sentiment_analysis_score: { type: :number },
-          date_created: { type: :string, format: 'date-time' },
-          is_ai_chat: { type: :boolean },
-          is_group_chat: { type: :boolean },
-        },
-        required: ['date_created', 'is_ai_chat', 'is_group_chat']
-      }
-
-      response '201', 'chat room created' do
-        let(:chat_room) { { date_created: '2023-06-20T00:00:00Z', is_ai_chat: false, is_group_chat: true } }
-        run_test!
+          run_test!
+        end
       end
 
-      response '422', 'invalid request' do
-        let(:chat_room) { { date_created: '2023-06-20T00:00:00Z' } }
-        run_test!
-      end
-    end
-  end
+      put 'Update a chat room' do
+        tags 'Chat Rooms'
+        consumes 'application/json'
+        parameter name: :id, in: :path, type: :integer
+        parameter name: :chat_room, in: :body, schema: {
+          type: :object,
+          properties: {
+            user1_id: { type: :integer },
+            user2_id: { type: :integer },
+            overall_sentiment_analysis_score: { type: :number },
+            is_ai_chat: { type: :boolean },
+            is_group_chat: { type: :boolean }
+          }
+        }
+        parameter name: :ai, in: :query, type: :boolean, description: 'Update to an AI chat room'
 
-  path '/chat_rooms/{id}' do
-    get 'Retrieves a chat room' do
-      tags 'Chat Rooms'
-      produces 'application/json'
-      parameter name: :id, in: :path, type: :integer
-
-      response '200', 'chat room found' do
-        schema type: :object,
+        response '200', 'Chat room updated' do
+          schema type: :object,
           properties: {
             id: { type: :integer },
+            user1_id: { type: :integer },
+            user2_id: { type: :integer },
             overall_sentiment_analysis_score: { type: :number },
-            date_created: { type: :string, format: 'date-time' },
             is_ai_chat: { type: :boolean },
-            is_group_chat: { type: :boolean },
-          },
-          required: ['id', 'date_created', 'is_ai_chat', 'is_group_chat']
+            is_group_chat: { type: :boolean }
+          }
+          run_test!
+        end
 
-        let(:id) { ChatRoom.create(chat_room_params).id }
-        run_test!
+        response '422', 'Invalid request' do
+          run_test!
+        end
       end
 
-      response '404', 'chat room not found' do
-        let(:id) { 'invalid' }
-        run_test!
-      end
-    end
+      delete 'Delete a chat room' do
+        tags 'Chat Rooms'
+        parameter name: :id, in: :path, type: :integer
 
-    put 'Updates a chat room' do
-      tags 'Chat Rooms'
-      parameter name: :id, in: :path, type: :integer
-      consumes 'application/json'
-      parameter name: :chat_room, in: :body, schema: {
-        type: :object,
-        properties: {
-          overall_sentiment_analysis_score: { type: :number },
-          date_created: { type: :string, format: 'date-time' },
-          is_ai_chat: { type: :boolean },
-          is_group_chat: { type: :boolean },
-        },
-        required: ['date_created', 'is_ai_chat', 'is_group_chat']
-      }
-
-      response '200', 'chat room updated' do
-        let(:chat_room) { { is_group_chat: false } }
-        run_test!
-      end
-
-      response '422', 'invalid request' do
-        let(:chat_room) { { date_created: '' } }
-        run_test!
-      end
-    end
-
-    delete 'Deletes a chat room' do
-      tags 'Chat Rooms'
-      parameter name: :id, in: :path, type: :integer
-
-      response '204', 'chat room deleted' do
-        let(:id) { ChatRoom.create(chat_room_params).id }
-        run_test!
+        response '204', 'Chat room deleted' do
+          run_test!
+        end
       end
     end
   end
