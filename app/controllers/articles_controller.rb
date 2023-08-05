@@ -5,7 +5,12 @@ class ArticlesController < ApplicationController
   
     # GET /articles
     def index
-      @articles = Article.all
+      if params[:userGroup]
+        @articles = Article.where("user_group LIKE ?", params[:userGroup])
+      else
+        @articles = Article.all
+      end
+
       render json: @articles
     end
   
@@ -14,11 +19,11 @@ class ArticlesController < ApplicationController
       render json: @article
     end
     
-    # GET /articles/ by user groups CREATE THIS ROUTE - user groups
-    def by_user_group
-      @articles = Article.where("user_group like ?", @user_group)
-      render json: @articles
-    end
+    # # GET /articles/ by user groups CREATE THIS ROUTE - user groups
+    # def by_user_group
+    #   @articles = Article.where("user_group like ?", @user_group)
+    #   render json: @articles
+    # end
   
     # POST /articles
     def create
